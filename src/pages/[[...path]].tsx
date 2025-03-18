@@ -787,13 +787,13 @@ export default function Home({ items, path, filePath, file_path, data, editable,
 }
 
 export async function getServerSideProps({ req, res }: any) {
-  let ping = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/bucket/ping`, {
+  let ping = await fetch(`https://storage.hpsk.me/api/bucket/ping`, {
     headers: {
       "Cookie": `token=${req.cookies.token}`
     }
   })
   let metadata = await ping.json()
-  let files = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/bucket/dir${encodeURI(req.url)}`, {
+  let files = await fetch(`https://storage.hpsk.me/api/bucket/dir${encodeURI(req.url)}`, {
     headers: {
       "Cookie": `token=${req.cookies.token}`
     }
