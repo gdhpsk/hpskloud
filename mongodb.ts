@@ -8,8 +8,10 @@ mongoose.connect(process.env.MONGODB_URI as string, {
     readPreference: "primaryPreferred",
     authSource: "$external",
     authMechanism: "MONGODB-X509",
-    tlsCertificateKeyFile: process.env.keyPath,
-} as any);
+    tls: true,
+    tlsCAFile: process.env.CA_PATH,
+    tlsCertificateKeyFile: process.env.CLIENT_PEM_PATH,
+});
 
 mongoose.connection.on('disconnected', () => {
   console.warn('MongoDB disconnected — attempting reconnect');
