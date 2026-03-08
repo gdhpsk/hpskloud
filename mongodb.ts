@@ -5,7 +5,7 @@ import mappingsSchema from "./schemas/mappings"
 
 mongoose.connect(process.env.MONGODB_URI as string, {
     dbName: "hpskloud",
-    readPreference: "primaryPreferred",
+    readPreference: "primary",
     authSource: "$external",
     authMechanism: "MONGODB-X509",
     tlsCertificateKeyFile: process.env.keyPath,
