@@ -8,7 +8,8 @@ mongoose.connect(process.env.MONGODB_URI as string, {
     readPreference: "primary",
     authSource: "$external",
     authMechanism: "MONGODB-X509",
-    tlsCertificateKeyFile: process.env.keyPath,
+    tlsCAFile: process.env.CA_PATH,
+    tlsCertificateKeyFile: process.env.CLIENT_PEM_PATH,
 } as any);
 
 export const authorized = auth
