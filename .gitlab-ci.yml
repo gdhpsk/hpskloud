@@ -1,0 +1,21 @@
+stages:
+  - deploy
+  
+deploy:
+  stage: deploy
+  environment:
+    name: production
+    url: https://storage.hpsk.me
+  image: alpine:latest
+  only:
+    - fs
+  before_script:
+    - apk add --no-cache openssh-client
+    - chmod 400 $SSH_PRIVATE_KEY
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -p 17380 $DEPLOY_HOST >> ~/.ssh/known_hosts
+  script:
+    - ssh -i $SSH_PRIVATE_KEY -p 17380 storage@$DEPLOY_HOST '
+        cd /home/storage/hpskloud &&
+        sudo pm2 restart hpskloud
+      '
